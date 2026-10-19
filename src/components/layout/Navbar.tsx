@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation, socialLinks } from "@/data/site";
 
 export function Navbar() {
@@ -11,6 +11,15 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const reduceMotion = useReducedMotion();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const syncHash = () => setActiveSection(window.location.hash.slice(1));
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -32,6 +41,7 @@ export function Navbar() {
 
   useEffect(() => {
     document.body.dataset.menuOpen = open ? "true" : "false";
+    if (open) requestAnimationFrame(() => closeButtonRef.current?.focus());
     return () => {
       delete document.body.dataset.menuOpen;
     };
@@ -40,7 +50,10 @@ export function Navbar() {
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
@@ -58,10 +71,10 @@ export function Navbar() {
             return <Link key={item.href} href={item.href} className={activeSection === section ? "is-active" : undefined} aria-current={activeSection === section ? "location" : undefined}>{item.label}</Link>;
           })}
         </nav>
-        <a className="nav__resume" href={socialLinks.resume} target="_blank" rel="noreferrer">
+        <a className="nav__resume" href={socialLinks.resume} target="_blank" rel="noreferrer" aria-label="Open résumé in a new tab">
           Resume <ArrowUpRight aria-hidden="true" size={15} />
         </a>
-        <button className="nav__menu-button" type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-menu">
+        <button ref={menuButtonRef} className="nav__menu-button" type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-menu">
           Menu <Menu aria-hidden="true" size={18} />
         </button>
       </header>
@@ -81,7 +94,7 @@ export function Navbar() {
           >
             <div className="mobile-menu__top">
               <span className="nav__mark">KD<span>.</span></span>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Close navigation menu">Close <X aria-hidden="true" size={18} /></button>
+              <button ref={closeButtonRef} type="button" onClick={() => { setOpen(false); menuButtonRef.current?.focus(); }} aria-label="Close navigation menu">Close <X aria-hidden="true" size={18} /></button>
             </div>
             <nav aria-label="Mobile navigation">
               {navigation.map((item, index) => (

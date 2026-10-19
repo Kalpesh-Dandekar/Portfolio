@@ -23,6 +23,7 @@ export const capabilities = [
 
 export const journey = [
   { year: "2023", title: "B.E. Information Technology", detail: "Began engineering studies at Mumbai University." },
-  { year: "2025", title: "Full-stack foundations", detail: "SmartBridge training, MongoDB University path, and GrowStart." },
+  { year: "2025", title: "Full-stack foundations", detail: "Completed SmartBridge training and the MongoDB University developer path." },
+  { year: "2025", title: "Product engineering", detail: "Built GrowStart as a connected full-stack startup ecosystem." },
   { year: "2026", title: "Intelligent systems", detail: "FraudCheck, HealthSync, TenderIQ, and ShadowOS." },
 ] as const;

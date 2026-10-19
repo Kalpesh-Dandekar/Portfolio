@@ -42,7 +42,7 @@ export function ArchitectureVisual({ project }: { project: Project }) {
   return (
     <section className={`architecture architecture--${project.slug}`}>
       <div className="architecture__intro">
-        <div className="section-label"><span>05</span>{system.label}</div>
+        <div className="section-label"><span>04</span>How it works / {system.label}</div>
         <h2>The system,<br /><em>made visible.</em></h2>
       </div>
       <ProjectVisual project={project.slug as ProjectVisualProject} expanded />

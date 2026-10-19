@@ -16,4 +16,6 @@ export type Project = {
   workflow?: string[];
   capabilities?: string[];
   engineering?: string;
+  decisions?: { title: string; detail: string }[];
+  demonstrates?: string;
 };

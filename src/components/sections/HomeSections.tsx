@@ -1,8 +1,10 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { capabilities, journey, socialLinks } from "@/data/site";
+import { capabilities, socialLinks } from "@/data/site";
 import { featuredProjects, selectedProjects } from "@/data/projects";
 import { Reveal } from "@/components/ui/Reveal";
+import { ProjectVisual } from "@/components/ui/ProjectVisual";
+import { JourneyTimeline } from "@/components/sections/JourneyTimeline";
 
 function SectionIntro({ index, label, title }: { index: string; label: string; title: React.ReactNode }) {
   return (
@@ -30,6 +32,7 @@ export function HomeSections() {
                   <p>{project.description}</p>
                   <ul>{project.technologies.map((tech) => <li key={tech}>{tech}</li>)}</ul>
                 </div>
+                <ProjectVisual project={project.slug as "tenderiq" | "shadowos" | "growstart"} />
                 <div className="featured-project__actions">
                   <Link href={`/work/${project.slug}`}>View case study <ArrowRight aria-hidden="true" /></Link>
                   {project.repository && <a href={project.repository} target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>}
@@ -46,6 +49,7 @@ export function HomeSections() {
               <span>{project.number}</span>
               <div><h3>{project.title}</h3><p>{project.category}</p></div>
               <p>{project.description}</p>
+              <ul>{project.technologies.map((tech) => <li key={tech}>{tech}</li>)}</ul>
               {project.repository ? <a href={project.repository} target="_blank" rel="noreferrer" aria-label={`View ${project.title} on GitHub`}><ArrowUpRight /></a> : <span className="small-project__dash" aria-hidden="true">—</span>}
             </article>
           ))}
@@ -59,6 +63,11 @@ export function HomeSections() {
           <Reveal delay={0.08} className="about__detail">
             <p>I like taking ideas beyond prototypes: understanding the problem, engineering the system, and turning it into something people can actually use.</p>
             <a className="text-link" href={socialLinks.resume} target="_blank" rel="noreferrer">Open résumé <ArrowUpRight size={15} /></a>
+          </Reveal>
+          <Reveal delay={0.12} className="about__signal">
+            <span>01 / Problem</span><i />
+            <span>02 / System</span><i />
+            <span>03 / Product</span>
           </Reveal>
         </div>
         <div className="about__facts">
@@ -84,13 +93,7 @@ export function HomeSections() {
 
       <section className="section journey" id="journey">
         <SectionIntro index="06" label="Journey + proof" title={<>Learning by<br /><em>building.</em></>} />
-        <div className="timeline">
-          {journey.map((item) => (
-            <Reveal className="timeline__item" key={item.year}>
-              <span>{item.year}</span><h3>{item.title}</h3><p>{item.detail}</p>
-            </Reveal>
-          ))}
-        </div>
+        <JourneyTimeline />
         <div className="credentials">
           <div><span>2025</span><strong>Full Stack Developer Training</strong><p>SmartBridge</p></div>
           <div><span>2025</span><strong>Mongo Node.js Developer Path</strong><p>MongoDB University</p></div>

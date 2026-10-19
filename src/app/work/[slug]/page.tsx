@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { featuredProjects, getProject } from "@/data/projects";
+import { ArchitectureVisual } from "@/components/ui/ArchitectureVisual";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -46,21 +47,27 @@ export default async function WorkPage({ params }: Props) {
           <article><div className="section-label"><span>03</span>The approach</div><h2>Structure before complexity.</h2><p>{project.approach}</p></article>
         </section>
 
-        <section className="case-flow">
-          <div className="section-label"><span>04</span>How it works</div>
-          <div className="case-flow__steps">
-            {project.workflow?.map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong><ArrowRight aria-hidden="true" /></div>)}
-          </div>
-        </section>
+        <ArchitectureVisual project={project} />
 
         <section className="case-capabilities">
-          <div><div className="section-label"><span>05</span>Key capabilities</div><h2>Built around the work that matters.</h2></div>
+          <div><div className="section-label"><span>06</span>Key capabilities</div><h2>Built around the work that matters.</h2></div>
           <ol>{project.capabilities?.map((capability, index) => <li key={capability}><span>{String(index + 1).padStart(2, "0")}</span>{capability}</li>)}</ol>
         </section>
 
         <section className="case-engineering">
-          <div className="section-label"><span>06</span>Engineering thinking</div>
-          <blockquote>{project.engineering}</blockquote>
+          <div className="section-label"><span>07</span>Engineering decisions</div>
+          <div className="case-engineering__intro"><h2>Design choices,<br /><em>not decoration.</em></h2><p>{project.engineering}</p></div>
+          <div className="decision-grid">{project.decisions?.map((decision, index) => <article key={decision.title}><span>0{index + 1}</span><h3>{decision.title}</h3><p>{decision.detail}</p></article>)}</div>
+        </section>
+
+        <section className="case-technology">
+          <div><div className="section-label"><span>08</span>Technology</div><h2>Purpose-built stack.</h2></div>
+          <ul>{project.technologies.map((tech) => <li key={tech}>{tech}</li>)}</ul>
+        </section>
+
+        <section className="case-demonstrates">
+          <div className="section-label"><span>09</span>What it demonstrates</div>
+          <p>{project.demonstrates}</p>
         </section>
 
         <nav className="case-next" aria-label="Project navigation">

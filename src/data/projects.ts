@@ -28,6 +28,12 @@ export const projects: Project[] = [
     ],
     engineering:
       "The system separates extraction, retrieval, evaluation, and presentation so each layer can be inspected. Semantic search improves recall; deterministic rules preserve precision where requirements are explicit.",
+    decisions: [
+      { title: "Hybrid evaluation", detail: "Use deterministic checks where requirements are explicit and semantic methods where language varies." },
+      { title: "Traceable evidence", detail: "Keep requirements, claims, and source evidence connected instead of collapsing them into one score." },
+      { title: "Evaluator control", detail: "Present inspectable decision support without replacing the human evaluator." },
+    ],
+    demonstrates: "A system-level approach to applied NLP: retrieval, structured evidence, explainability, and human judgment working as distinct layers.",
   },
   {
     slug: "shadowos",
@@ -57,6 +63,12 @@ export const projects: Project[] = [
     ],
     engineering:
       "The product treats governance as part of the execution architecture, not a report added afterward. Employee, manager, and admin roles make responsibility explicit throughout the workflow.",
+    decisions: [
+      { title: "Control before action", detail: "Simulation, risk, and policy checks occur before execution rather than after the fact." },
+      { title: "Explicit authority", detail: "Employee, manager, and admin roles make responsibility visible throughout the workflow." },
+      { title: "Recoverable operation", detail: "Audit and rollback remain part of the controlled execution path." },
+    ],
+    demonstrates: "How an AI-enabled product can make autonomy inspectable, permissioned, and recoverable through system design.",
   },
   {
     slug: "growstart",
@@ -86,6 +98,12 @@ export const projects: Project[] = [
     ],
     engineering:
       "The project centers product engineering: translating a broad ecosystem idea into coherent user journeys, data-backed features, and a maintainable JavaScript stack across frontend and backend.",
+    decisions: [
+      { title: "Connected journeys", detail: "Growth pathways, analytics, collaboration, and talent workflows belong to one coherent product experience." },
+      { title: "Full-stack continuity", detail: "A shared TypeScript-oriented stack supports consistent implementation across product layers." },
+      { title: "Secure entry", detail: "Authentication provides the access foundation for the wider startup ecosystem." },
+    ],
+    demonstrates: "The ability to shape a broad product concept into connected user journeys and a maintainable full-stack implementation.",
   },
   {
     slug: "healthsync",

@@ -9,6 +9,7 @@ import { navigation, socialLinks } from "@/data/site";
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -19,10 +20,30 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
+    const sections = ["work", "about", "stack", "contact"].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    if (!sections.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveSection(visible.target.id);
+    }, { rootMargin: "-20% 0px -55%", threshold: [0.05, 0.25, 0.5] });
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     document.body.dataset.menuOpen = open ? "true" : "false";
     return () => {
       delete document.body.dataset.menuOpen;
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
   return (
@@ -32,7 +53,10 @@ export function Navbar() {
           KD<span>.</span>
         </Link>
         <nav className="nav__links" aria-label="Primary navigation">
-          {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {navigation.map((item) => {
+            const section = item.href.split("#")[1];
+            return <Link key={item.href} href={item.href} className={activeSection === section ? "is-active" : undefined} aria-current={activeSection === section ? "location" : undefined}>{item.label}</Link>;
+          })}
         </nav>
         <a className="nav__resume" href={socialLinks.resume} target="_blank" rel="noreferrer">
           Resume <ArrowUpRight aria-hidden="true" size={15} />

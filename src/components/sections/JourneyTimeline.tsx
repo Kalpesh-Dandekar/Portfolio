@@ -16,7 +16,7 @@ export function JourneyTimeline() {
       {journey.map((item, index) => (
         <motion.article
           className="timeline__item"
-          key={item.year}
+          key={`${item.year}-${item.title}`}
           initial={reduceMotion ? false : { opacity: 0.35 }}
           whileInView={{ opacity: 1 }}
           viewport={{ amount: 0.65 }}

@@ -1,8 +1,17 @@
+import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
+import { Hero } from "@/components/sections/Hero";
+import { HomeSections } from "@/components/sections/HomeSections";
+
 export default function Home() {
   return (
-    <main className="site-shell">
-      <h1>Kalpesh Dandekar</h1>
-      <p>Portfolio foundation initialized.</p>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <HomeSections />
+      </main>
+      <Footer />
+    </>
   );
 }

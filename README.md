@@ -1,6 +1,6 @@
 # Kalpesh Dandekar — Portfolio
 
-The foundation for Kalpesh Dandekar's personal software engineering portfolio.
+A cinematic, editorial portfolio presenting Kalpesh Dandekar's full-stack, backend, and AI-focused engineering work.
 
 ## Technology stack
 
@@ -30,4 +30,11 @@ Open [http://localhost:3000](http://localhost:3000) in a browser.
 - `npm run build` — create a production build
 - `npm run start` — serve the production build
 
-The complete portfolio design and content will be implemented in the next phase.
+## Routes
+
+- `/` — portfolio homepage
+- `/work/tenderiq` — TenderIQ case study
+- `/work/shadowos` — ShadowOS case study
+- `/work/growstart` — GrowStart case study
+
+The site is prepared for local review and future Vercel deployment.

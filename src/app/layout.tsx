@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { siteUrl } from "@/data/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   applicationName: "Kalpesh Dandekar Portfolio",
   title: {
     default: "Kalpesh Dandekar — Software Engineer",
@@ -11,9 +13,11 @@ export const metadata: Metadata = {
   keywords: ["Kalpesh Dandekar", "Software Engineer", "Full-stack Developer", "AI Systems", "Next.js", "Portfolio"],
   authors: [{ name: "Kalpesh Dandekar" }],
   creator: "Kalpesh Dandekar",
+  alternates: { canonical: `${siteUrl}/` },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
+    url: `${siteUrl}/`,
     title: "Kalpesh Dandekar — Software Engineer",
     description: "Full-stack engineer building AI-powered systems and thoughtful digital products.",
     siteName: "Kalpesh Dandekar",

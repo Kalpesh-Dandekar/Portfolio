@@ -16,7 +16,25 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project?.featured) return {};
-  return { title: project.title, description: project.description, openGraph: { title: project.fullTitle, description: project.description } };
+  const canonicalPath = `/work/${project.slug}`;
+
+  return {
+    title: project.title,
+    description: project.description,
+    alternates: { canonical: canonicalPath },
+    openGraph: {
+      type: "website",
+      url: canonicalPath,
+      title: project.fullTitle,
+      description: project.description,
+      siteName: "Kalpesh Dandekar",
+    },
+    twitter: {
+      card: "summary",
+      title: `${project.title} — Kalpesh Dandekar`,
+      description: project.description,
+    },
+  };
 }
 
 export default async function WorkPage({ params }: Props) {

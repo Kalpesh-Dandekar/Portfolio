@@ -1,3 +1,5 @@
+export const siteUrl = "https://kalpesh-dandekar.vercel.app";
+
 export const socialLinks = {
   github: "https://github.com/Kalpesh-Dandekar",
   linkedin: "https://www.linkedin.com/in/kalpesh-dandekar/",
